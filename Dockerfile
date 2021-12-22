@@ -1,5 +1,5 @@
 # Stage 1 - build
-FROM node:8.15-alpine AS builder
+FROM node:14.17.3 AS builder
 WORKDIR /app
 COPY package*.json ./
 RUN  npm install
@@ -7,7 +7,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2 - production
-FROM node:8.15-alpine AS final
+FROM node:14.17.3 AS final
 WORKDIR /app
 ADD package.json .
 ADD nuxt.config.js .
