@@ -22,7 +22,7 @@
         <td>{{ row.name }}</td>
         <td>{{ row.email }}</td>
         <td>{{ row.phone }}</td>
-        <td>{{ row.facility.name }}</td>
+        <td>{{ row.facility && facility.name }}</td>
         <td>{{ row.created_at }}</td>
         <td>{{ row.active ? 'Active' : 'InActive' }}</td>
         <td class="text-right">
@@ -72,14 +72,22 @@ export default {
     BaseTable,
   },
   async asyncData({ $axios }) {
-    const response = await $axios.get("admin/fetch/facilitators");
-    const { data, meta, links } = response.data;
-    return { table : data, meta:meta };
+    try {
+        const response = await $axios.get("admin/fetch/facilitators");
+      if(response && response.data){
+        const { data, meta, links } = response.data;
+        return { table : data, meta:meta }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
   },
   data() {
     return {
       table: [],
       modal: false,
+      meta : {}
     };
   },
 

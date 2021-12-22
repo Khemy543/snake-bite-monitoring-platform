@@ -74,7 +74,7 @@
                 this.loading = true; 
                 this.$axios.$post('admin/store/district',this.form)
                 .then(response => {
-                    this.$notify({ type:'success', message : 'Region added successfully' });
+                    this.$notify({ type:'success', message : 'District added successfully' });
                     this.form = {
                         name: "",
                         address_of_district_health_directorate : "",
@@ -82,7 +82,7 @@
                     }
                 })
                 .catch(error => {
-                    this.$notify({ type : 'error', message : 'Error adding region, Please try again later' })
+                    this.$notify({ type : 'error', message : 'Error adding district, Please try again later' })
                 })
                 .finally((_) => this.loading = false)
             }

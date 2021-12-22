@@ -76,8 +76,17 @@ export default {
     })
   },
   methods: {
-    updateProfile() {
-      this.$axios.patch('')
+    async updateProfile() {
+      try {
+        const response = await this.$axios.patch('');
+
+        if(response && response.data){
+
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      
     }
   },
   mounted(){

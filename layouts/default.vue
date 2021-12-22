@@ -52,6 +52,15 @@
 
         <sidebar-item
           :link="{
+            name: $t('sidebar.admins'),
+            icon: 'tim-icons icon-pin',
+            path: '/admins'
+          }"
+        >
+        </sidebar-item>
+
+        <sidebar-item
+          :link="{
             name: $t('sidebar.userProfile'),
             icon: 'tim-icons icon-single-02',
             path: '/user' }"

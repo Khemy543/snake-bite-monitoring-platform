@@ -18,7 +18,8 @@
                         v-model="password"
                     >
                     </base-input>
-
+                    <nuxt-link to="/forgot-password">Forgot password?</nuxt-link>
+                    <br/>
                     <base-button native-type="submit" type="primary" class="btn-fill" :loading="loading">
                         login
                     </base-button>
@@ -68,7 +69,7 @@ export default {
                     console.log(status)
                     if(status == 401){
                         console.log('here')
-                        this.$notify({type:'success', message :'Login successfull!'})
+                        this.$notify({type:'danger', message :'Invalid credentials!'})
                     }
                 }
             })

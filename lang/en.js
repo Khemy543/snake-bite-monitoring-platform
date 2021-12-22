@@ -14,6 +14,7 @@ module.exports = {
     "userProfile": "User Profile",
     "regions":"Regions",
     "districts" : "Districts",
+    "admins":"Admins",
     "facilities" : "Facilities",
     "components": "Components",
     "multiLevelCollapse": "Multilevel Collapse",
