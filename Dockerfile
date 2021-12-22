@@ -14,6 +14,6 @@ RUN npm run build
 
 RUN npm run generate
 
-COPY ./dist /app/dist
+FROM nginx:alpine
 
-WORKDIR /app/dist
+COPY --from=dist /app/dist /usr/share/nginx/html
