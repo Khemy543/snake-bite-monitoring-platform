@@ -6,14 +6,16 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY ["package.json","package-lock.json", "./"]
+COPY . /app/
 
 RUN npm install --production
 
 RUN npm run build
 
-RUN npm run generate
+EXPOSE 5000
 
-FROM nginx:alpine
+ENV NUXT_HOST=0.0.0.0
 
-COPY --from=dist /app/dist /usr/share/nginx/html
+ENV NUXT_PORT=5000
+
+CMD ["npm", "start"]
