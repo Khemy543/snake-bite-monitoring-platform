@@ -1,4 +1,4 @@
-name: Check node version
+name: Build project
 on:
   push:
     branches:
@@ -7,9 +7,24 @@ jobs:
   check-version-of-node:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2.5.0
+      - name: Checkout repository 
+        uses: actions/checkout@v2
+      - name: npm install and generate
+        uses: actions/setup-node@v2.5.0
+        run: |
+          npm install
+          npm run build
+          npm run generate 
         with:
           node-version: '14'
-      - run: npm install
-      - run: node -v
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist-without-markdown
+          path: |
+            dist
+            !dist/**/*.md 
+      - name: Download dist folder
+        uses: actions/download-artifact@v2
+        with:
+          name: dist 
