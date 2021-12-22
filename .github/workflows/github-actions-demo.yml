@@ -9,8 +9,9 @@ jobs:
     steps:
       - name: Checkout repository 
         uses: actions/checkout@v2
-      - name: npm install and generate
+      - name: use node
         uses: actions/setup-node@v2.5.0
+      - name: npm install and generate
         run: |
           npm install
           npm run build
