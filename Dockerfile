@@ -1,20 +1,31 @@
-# Stage 1 - build
 FROM node:14.17.3 AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN  npm install
-COPY . .
-RUN npm run build
 
-# Stage 2 - production
-FROM node:14.17.3 AS final
 WORKDIR /app
-ADD package.json .
-ADD nuxt.config.js .
-COPY --from=builder /app/.nuxt ./.nuxt
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/static ./static
-ENV NUXT_HOST=0.0.0.0
-ENV NUXT_PORT=3000
-EXPOSE 3000
+
+COPY . .
+
+RUN npm install \
+  --prefer-offline \
+  --frozen-lockfile \
+  --non-interactive \
+  --production=false
+
+RUN npm build
+
+RUN rm -rf node_modules && \
+  NODE_ENV=production npm install  \
+  --prefer-offline \
+  --pure-lockfile \
+  --non-interactive \
+  --production=true
+
+FROM node:14.17.3
+
+WORKDIR /app
+
+COPY --from=builder /app .
+
+ENV HOST 0.0.0.0
+EXPOSE 80
+
 CMD ["npm", "start"]
