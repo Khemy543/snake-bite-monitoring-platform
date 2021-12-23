@@ -2,33 +2,21 @@ name: CI to Docker Hub
 on: 
   push: 
     branches: [ master ]
-jobs: 
-  build:
+jobs:
+  deploy:
+    name: Deploy application
     runs-on: ubuntu-latest
     steps:
-      - name: Check Out Repo
-        uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      
-      - name: Set up Docker Build
-        id: buildx
-        uses: docker/setup-buildx-action@v1
+          host: ${{ secrets.SEVER_HOST }}
+          username: ${{ secrets.SEVER_USERNAME }}
+          password: ${{ secrets.SEVER_TOKEN }}
 
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/smp_docker:latest
-
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+          script: |
+            mkdir test
+            cd test
+            git clone git@github.com:Khemy543/SMP.git
 
 
