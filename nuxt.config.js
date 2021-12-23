@@ -37,6 +37,7 @@ export default {
       class: 'white-content'
     }
   },
+  target:"static",
   router: {
     linkExactActiveClass: 'active'
   },
