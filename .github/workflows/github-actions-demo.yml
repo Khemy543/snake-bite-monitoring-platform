@@ -8,11 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: executing remote ssh commands using password
-        uses: appleboy/ssh-action@v0.1.2
+        uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SEVER_HOST }}
-          key: ${{ secrets.SEVER_TOKEN }}
-          username: ${{ secrets.SEVER_USERNAME }}
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
 
           script: |
             echo "Login succesfull"
