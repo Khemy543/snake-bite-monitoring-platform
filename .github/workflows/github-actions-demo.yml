@@ -12,7 +12,7 @@ jobs:
         with:
           host: ${{ secrets.SEVER_HOST }}
           username: ${{ secrets.SEVER_USERNAME }}
-          password: ${{ secrets.SEVER_TOKEN }}
+          key: ${{ secrets.SEVER_TOKEN }}
           script: |
             echo "Login succesfull"
 
