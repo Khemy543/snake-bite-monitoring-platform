@@ -1,4 +1,4 @@
-name: CI to Docker Hub
+name: CD to Server
 on: 
   push: 
     branches: [ master ]
@@ -12,10 +12,16 @@ jobs:
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.SERVER_SSH }}
+          password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
 
           script: |
             echo "Login succesfull"
-
+            git clone git@github.com:Khemy543/SMP.git
+            cd SMP
+            npm install
+            npm run generate
+            sudo cp -R dist/* /var/www/html/admin.smp.com 
+            cd ~
+            sudo rm -rf SMP 
 
